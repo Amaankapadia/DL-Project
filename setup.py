@@ -1,25 +1,17 @@
 from setuptools import setup, find_packages
-from typing import List
 
-HYPEN_E_DOT = '-e .'
-def get_requirements(file_path: str) -> List[str]:
-    '''this function will return the list of requirements'''
-    requirements = []
-    with open(file_path) as file_obj:
-        requirements = file_obj.readlines()
-        requirements = [req.replace("\n", "") for req in requirements]
+REQUIREMENTS_FILE = "requirements.txt"
 
-        if HYPEN_E_DOT in requirements:
-            requirements.remove(HYPEN_E_DOT)
-        
-    return requirements
-
+def get_requirements_list():
+    with open(REQUIREMENTS_FILE, 'r') as f:
+        return f.read().splitlines()
 
 setup(
-     name="DL-Project",
+    name="cnnClassifier",
     version="0.0.1",
     author="Amaan",
-    author_email="amaankapadia78692@gmail.com",
-    packages=find_packages(),
-    install_requires=get_requirements('requirements.txt')
+    description="A CNN classifier project",
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
+    install_requires=get_requirements_list()
 )
