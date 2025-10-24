@@ -1,6 +1,6 @@
 from src.cnnClassifier.constants import * 
 from src.cnnClassifier.utils.common import read_yaml, create_directories 
-from src.cnnClassifier.entity.config_entity import (DataIngestionConfig,PrepareBaseModelConfig,PrepareCallbacksConfig)
+from src.cnnClassifier.entity.config_entity import (DataIngestionConfig,PrepareBaseModelConfig,PrepareCallbacksConfig,TrainingConfig)
 import os
 
 class ConfigManager:
@@ -31,11 +31,11 @@ class ConfigManager:
             root_dir=Path(config.root_dir),
             base_model_path=Path(config.base_model_path),
             updated_base_model_path=Path(config.updated_base_model_path),
-            params_image_size=self.params.IMAGE_SIZE,
-            params_learning_rate=self.params.LEARNING_RATE,
-            params_include_top=self.params.INCLUDE_TOP,
-            params_weights=self.params.WEIGHTS,
-            params_classes=self.params.CLASSES
+            params_image_size=self.params.params_image_size,
+            params_learning_rate=self.params.params_learning_rate,
+            params_weights=self.params.params_weights,
+            params_classes=self.params.params_classes,
+            params_include_top=self.params.params_include_top
         )
         return prepare_base_model_config_obj
     
@@ -52,4 +52,25 @@ class ConfigManager:
             tensorboard_log_dir=Path(config.tensorboard_log_dir),
             checkpoint_model_filepath=Path(config.checkpoint_model_filepath)
         )
-        return prepare_callbacks_config
+        return prepare_callbacks_config 
+    
+    def get_training_config(self) -> TrainingConfig:
+        training = self.config.training
+        prepare_base_model = self.config.prepare_base_model
+        params = self.params
+        training_data_path =os.path.join(self.config.data_ingestion.unzip_dir,"Chicken fickle images")
+        create_directories([Path(training.root_dir)])
+        
+        training_config = TrainingConfig(
+            root_dir=Path(training.root_dir),
+            trained_model_path=Path(training.trained_model_path),
+            updated_base_model_path=Path(prepare_base_model.updated_base_model_path),
+            training_data=Path(training_data_path),
+            params_epoch=params.params_epoch,
+            params_batch_size=params.params_batch_size,
+            params_is_augmentation=params.params_is_augmentation,
+            params_image_size=params.params_image_size
+        )
+        return training_config
+        
+        

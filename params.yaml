@@ -1,8 +1,8 @@
-AUGMENTATION : True 
-IMAGE_SIZE : [224, 224,3] # as per VGG16 MODEL 
-BATCH_SIZE : 16 
-INCLUDE_TOP : False
-EPOCHS : 1 
-CLASSES : 2
-LEARNING_RATE : 0.01 
-WEIGHTS : imagenet
+params_image_size: [224, 224, 3]  # as per VGG16 MODEL
+params_batch_size: 16
+params_epoch: 1
+params_include_top: False
+params_classes: 2
+params_learning_rate: 0.01
+params_weights: imagenet
+params_is_augmentation: True
