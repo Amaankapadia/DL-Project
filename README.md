@@ -72,24 +72,24 @@ python app.py
 
 # Can be done in 2 ways:
 
-# 1. Run through DVC
+1. Run through DVC
 dvc repro
 
-# 2. Run through main.py
+2. Run through main.py
 python main.py
 
-### DVC COMMANDS 
+# DVC COMMANDS 
 
 dvc init
 dvc repro
 dvc dag
 
-### MLflow and DVC
+# MLflow and DVC
 
  - MLflow
  - DVC
 
-### About the Project
+# About the Project
 This project is designed to help poultry farmers and veterinarians quickly identify Coccidiosis in chickens through image analysis. The system achieves:
 
 Training Accuracy: 86.82%
@@ -97,19 +97,19 @@ Validation Accuracy: 89.06%
 Test Accuracy: 93.10%
 The web interface allows users to upload chicken images and get instant predictions about the presence of Coccidiosis.
 
-### AWS Deployment
+# AWS Deployment
 The application can be deployed on AWS EC2 instance for production use.
 
-### Tech Stack Used
+# Tech Stack Used
 Python 3.8+
 TensorFlow
 DVC
 Flask
 AWS
 
-### Author
+# Author
 Amaan Kapadia
-Email: amaankapadiaak2@gmail.com
+Email: amaankapadia78692@gmail.com
 GitHub: @Amaankapadia 
 
 
