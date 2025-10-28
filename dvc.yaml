@@ -1,0 +1,55 @@
+stages:
+  data_ingestion:
+    cmd: python -m src.cnnClassifier.pipeline.stage_01_data_ingestion
+    deps:
+      - src/cnnClassifier/pipeline/stage_01_data_ingestion.py
+      - src/cnnClassifier/components/data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/Chicken fickle images  # Changed to match actual folder name
+
+  prepare_base_model:    
+    cmd: python -m src.cnnClassifier.pipeline.stage_02_prepare_base_model
+    deps:
+      - src/cnnClassifier/pipeline/stage_02_prepare_base_model.py
+      - src/cnnClassifier/components/prepare_base_model.py
+      - config/config.yaml
+    params:
+      - params_image_size
+      - params_include_top
+      - params_classes
+      - params_weights 
+      - params_learning_rate
+    outs:
+      - artifacts/prepare_base_model
+
+  training:
+    cmd: python -m src.cnnClassifier.pipeline.stage_03_training
+    deps:
+      - src/cnnClassifier/pipeline/stage_03_training.py
+      - src/cnnClassifier/components/prepare_callbacks.py 
+      - src/cnnClassifier/components/training.py
+      - config/config.yaml
+      - artifacts/data_ingestion/Chicken fickle images  # Updated here too
+      - artifacts/prepare_base_model
+    params:
+      - params_epoch
+      - params_batch_size
+      - params_is_augmentation
+      - params_image_size
+    outs:
+      - artifacts/training/model.h5
+
+  evaluation:
+    cmd: python -m src.cnnClassifier.pipeline.stage_04_evaluation
+    deps:
+      - src/cnnClassifier/pipeline/stage_04_evaluation.py
+      - config/config.yaml
+      - artifacts/training/model.h5
+      - artifacts/data_ingestion/Chicken fickle images  # Updated here too
+    params:
+      - params_batch_size
+      - params_image_size
+    metrics:
+      - scores.json:
+          cache: false

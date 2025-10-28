@@ -34,4 +34,12 @@ class TrainingConfig:
     params_epoch: int
     params_batch_size: int
     params_is_augmentation: bool
-    params_image_size: list  
+    params_image_size: list   
+
+@dataclass
+class EvaluationConfig:
+    path_of_model: Path
+    all_params: dict
+    train_data_path: Path 
+    param_batch_size: int
+    param_image_size: list

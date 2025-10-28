@@ -1,3 +1,5 @@
+import sys, os
+sys.path.append(os.path.join(os.getcwd(), "src"))
 from src.cnnClassifier.components.prepare_callbacks import prepareCallbacks
 from src.cnnClassifier.components.training import Training 
 from src.cnnClassifier import logger

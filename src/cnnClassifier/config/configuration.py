@@ -1,7 +1,8 @@
 from src.cnnClassifier.constants import * 
 from src.cnnClassifier.utils.common import read_yaml, create_directories 
-from src.cnnClassifier.entity.config_entity import (DataIngestionConfig,PrepareBaseModelConfig,PrepareCallbacksConfig,TrainingConfig)
+from src.cnnClassifier.entity.config_entity import (DataIngestionConfig,PrepareBaseModelConfig,PrepareCallbacksConfig,TrainingConfig,EvaluationConfig)
 import os
+from pathlib import Path
 
 class ConfigManager:
     def __init__(self, config_filepath=CONFIG_FILE_PATH, params_filepath=PARAMS_FILE_PATH):
@@ -72,5 +73,14 @@ class ConfigManager:
             params_image_size=params.params_image_size
         )
         return training_config
-        
+         
+    def get_evaluation_config(self) -> EvaluationConfig:
+        evaluation_config = EvaluationConfig(
+            path_of_model=Path("artifacts/training/model.h5"),
+            all_params=self.params,
+            train_data_path=Path("artifacts/data_ingestion/Chicken fickle images"),
+            param_batch_size=self.params.params_batch_size,
+            param_image_size=self.params.params_image_size
+        )
+        return evaluation_config
         
