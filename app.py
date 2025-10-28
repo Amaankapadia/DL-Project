@@ -36,4 +36,6 @@ def predictRoute():
 
 if __name__=="__main__":
     client_app = ClientApp()
-    app.run(host="0.0.0.0",port=5000,debug=True)
+    #local server : 5000 
+    # Azure server : 80 
+    app.run(host="0.0.0.0",port=80,debug=True)
